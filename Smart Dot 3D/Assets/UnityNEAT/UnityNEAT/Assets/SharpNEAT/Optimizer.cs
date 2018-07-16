@@ -17,7 +17,7 @@ public class Optimizer : MonoBehaviour {
     public float TrialDuration;
     public float StoppingFitness;
     bool EARunning;
-    string popFileSavePath, champFileSavePath;
+    string popFileSavePath, champFileSavePath, popFileLoadPath;
 
     SimpleExperiment experiment;
     static NeatEvolutionAlgorithm<NeatGenome> _ea;

@@ -46,7 +46,7 @@ public class BallControl : UnitController {
         //    transform.Translate(Vector3.forward * moveDist);
         //}
 
-        // Five sensors: Front, left, right, up, down, up left, up right, down left, down right
+       
 
         if (IsRunning)
         {
