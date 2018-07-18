@@ -8,8 +8,8 @@ public class BallControl : UnitController {
     public float Speed = 5f;
     
     bool MovingForward = true;
-    bool IsRunning;
-    public float SensorRange = 10;
+    bool IsRunning = true ;
+    public float SensorRange = 200;
     public GameObject goal;
     IBlackBox box;
     int steps = 0;
@@ -17,7 +17,7 @@ public class BallControl : UnitController {
     // Use this for initialization
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
@@ -62,91 +62,90 @@ public class BallControl : UnitController {
            
             // Front sensor
             RaycastHit hit;
-            Ray ray;
-
-            ray = new Ray( transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized));
+           
+           
                 
-            if (Physics.Raycast(ray, out hit, SensorRange))
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 0, 1).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     frontSensor = 1 - hit.distance / SensorRange;
 
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0.5f, 0.5f, 1).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+           
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0.5f, 0.5f, 1).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     rightUpSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(1, 0, 0).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+           
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(1, 0, 0).normalized) ,out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     rightSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-0.5f, 0.5f, 1).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+            
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-0.5f, 0.5f, 1).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     leftUpSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-1, 0, 0).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+           
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-1, 0, 0).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     leftSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
 
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 1, 0).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+          
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, 1, 0).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     upSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, -1, 0).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+           
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0, -1, 0).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     downSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-0.5f, -0.5f, 1).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+         
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(-0.5f, -0.5f, 1).normalized),out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     leftDownSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
-            ray = new Ray(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0.5f, -0.5f, 1).normalized));
-            if (Physics.Raycast(ray, out hit, SensorRange))
+            
+            if (Physics.Raycast(transform.position + transform.forward * 1.1f, transform.TransformDirection(new Vector3(0.5f, -0.5f, 1).normalized), out hit, SensorRange))
             {
                 if (hit.collider.tag.Equals("obstacle"))
                 {
                     leftUpSensor = 1 - hit.distance / SensorRange;
                 }
-                Debug.DrawLine(ray.origin, hit.point);
+                Debug.DrawLine(transform.position, hit.point);
             }
 
             ISignalArray inputArr = box.InputSignalArray;
